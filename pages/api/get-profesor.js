@@ -31,16 +31,18 @@ export default async function handler(req, res) {
     const [headers, ...data] = rows;
 
     const bloques = data
-      .filter(row => row[5] === codigo)
-      .map(row => ({
-        bloque: row[0],
-        curso: row[1],
-        dia: row[2],
-        idBloque: row[3],
-        profesor: row[4],
-        codigo: row[5],
-        confirmacion: row[6] || '',
-      }));
+  .filter(row => row[6] === codigo) // ✅ Columna G = índice 6
+  .map(row => ({
+    bloque: row[0],
+    curso: row[1],
+    dia: row[2],
+    idBloque: row[3],
+    profesor: row[4],
+    cuenta: row[5],
+    codigo: row[6],
+    confirmacion: row[7] || '', // 🟨 Solo si agregaste más columnas
+  }));
+
 
     res.status(200).json({ bloques });
 
